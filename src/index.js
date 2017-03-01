@@ -32,7 +32,7 @@ class FilterableProductTable extends React.Component {
                 <SearchBar input={keyword} isChecked={isChecked}
                            onKeywordChange={value => this.changeKeyword(value)}
                            onCheckboxChange={value => this.changeCheckbox(value)}/>
-                <ProductTable input={keyword} isChecked={isChecked} products={products}/>
+                <ProductTable inputKey={keyword} isChecked={isChecked} products={products}/>
             </div>
         )
 
@@ -86,11 +86,9 @@ class ProductTable extends React.Component {
         data.forEach(product => {
                 if (this.props.isChecked && !product.stocked)
                     return;
-                console.log(this.props.inputKey===undefined);
-                console.log(!this.props.inputKey==="");
-                if (!this.props.inputKey==="" && product.name.indexOf(this.props.inputKey) == -1)
-                {return;}
-                console.log(product.name.indexOf(this.props.inputKey),product.name);
+                if (this.props.inputKey !== ""&&this.props.inputKey!==undefined && product.name.indexOf(this.props.inputKey) === -1) {
+                    return;
+                }
                 if (product.category != lastCategory) {
                     rows.push(<ProductTitleRow title={product.category} key={product.category}/>);
                 }
